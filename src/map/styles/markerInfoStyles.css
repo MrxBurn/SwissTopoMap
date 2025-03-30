@@ -1,0 +1,28 @@
+
+div {
+    color: black;
+}
+
+h1 {
+    font-size: 16px;
+}
+
+p {
+    font-size: 12px;
+}
+
+
+#markerToolbar {
+    position: absolute;
+    width: 250px;
+    height: max-content;
+    border-radius: 8px;
+    top: 2rem;
+    bottom: 0;
+    right: 3rem;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow:
+    0 6px 6px hsl(0deg 0% 0% / 0.3);
+    padding: 0.5rem;
+  }

@@ -1,24 +1,14 @@
 import { Feature, Map } from "ol";
 import { Point } from "ol/geom";
 import { Vector as SourceVector } from "ol/source";
-import { redMarker } from "../components/markerStyles";
+import { redMarker } from "../styles/markerStyles";
 
-export const onMapClick = (
-  map: Map,
-  iconFeature: Feature,
-  vectorSource: SourceVector
-) => {
+export const addMarker = (map: Map, vectorSource: SourceVector): void => {
   map.on("click", function (evt) {
-    const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
-      return feature;
-    });
-    if (feature === iconFeature) {
-      //get values of object - open popup
-      // console.log(iconFeature.getProperties().name);
-    }
-
     //add marker on click
     const location = evt.coordinate;
+
+    console.log("cal");
 
     const x = location[0];
     const y = location[1];
@@ -30,5 +20,7 @@ export const onMapClick = (
 
     createdMarker.setStyle(redMarker);
     vectorSource.addFeature(createdMarker);
+
+    vectorSource.changed();
   });
 };
