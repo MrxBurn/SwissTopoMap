@@ -1,15 +1,14 @@
-import { Feature, Map } from "ol";
+import { Feature, Map, MapBrowserEvent } from "ol";
 import { Point } from "ol/geom";
 import { Vector as SourceVector } from "ol/source";
 import { redMarker } from "../styles/markerStyles";
 
-export const addMarker = (map: Map, vectorSource: SourceVector): void => {
-  map.on("click", function (evt) {
-    //add marker on click
+export const addMarker = (
+  map: Map,
+  vectorSource: SourceVector
+): (() => void) => {
+  const clickHandler = (evt: MapBrowserEvent<UIEvent>) => {
     const location = evt.coordinate;
-
-    console.log("cal");
-
     const x = location[0];
     const y = location[1];
 
@@ -20,7 +19,11 @@ export const addMarker = (map: Map, vectorSource: SourceVector): void => {
 
     createdMarker.setStyle(redMarker);
     vectorSource.addFeature(createdMarker);
+  };
 
-    vectorSource.changed();
-  });
+  map.on("click", clickHandler);
+
+  return () => {
+    map.un("click", clickHandler);
+  };
 };

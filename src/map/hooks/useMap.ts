@@ -29,27 +29,19 @@ const useMap = (
   iconFeature.setStyle(redMarker);
 
   const mapRef = useRef<Map | null>(null);
-  // const vectorSource = useMemo(() => {
-  //   return new SourceVector({
-  //     features: [iconFeature],
-  //   });
-  // }, [iconFeature]);
-
-  // const markerLayer = useMemo(() => {
-  //   return new LayerVector({
-  //     source: vectorSource,
-  //   });
-  // }, [vectorSource]);
-
-  useEffect(() => {
-    const vectorSource = new SourceVector({
+  const vectorSource = useMemo(() => {
+    return new SourceVector({
       features: [iconFeature],
     });
+  }, [iconFeature]);
 
-    const markerLayer = new LayerVector({
+  const initialMarkerLayer = useMemo(() => {
+    return new LayerVector({
       source: vectorSource,
     });
+  }, [vectorSource]);
 
+  useEffect(() => {
     if (!mapRef.current) {
       mapRef.current = new Map({
         target: "map",
@@ -58,7 +50,7 @@ const useMap = (
             units: "metric",
           }),
         ]),
-        layers: [backgroundLayer, markerLayer],
+        layers: [backgroundLayer, initialMarkerLayer],
         view: view,
       });
       setMap(mapRef.current);
@@ -66,18 +58,32 @@ const useMap = (
 
     mapRef.current.setTarget("map");
 
-    //TODO: FIX THIS now working with edit mode
-    // if (isEditEnabled) addMarker(mapRef.current, vectorSource);
+    const newMarkersLayer = new LayerVector({
+      source: vectorSource,
+    });
+
+    let removeMarkerListener: (() => void) | null = null;
+
+    if (isEditEnabled) {
+      mapRef.current.addLayer(newMarkersLayer);
+      removeMarkerListener = addMarker(mapRef.current, vectorSource);
+    }
 
     onMarkerClick(mapRef.current, iconFeature, setMarkerDetails);
 
-    return () => mapRef.current?.setTarget(undefined);
+    return () => {
+      if (removeMarkerListener) removeMarkerListener(); // Remove event listener when unmounting or disabling edit mode
+
+      mapRef.current?.setTarget(undefined);
+    };
   }, [
     backgroundLayer,
     iconFeature,
-    isEditEnabled,
+    isEditEnabled, // Depend on this flag so effect re-runs when it changes
+    initialMarkerLayer,
     setMap,
     setMarkerDetails,
+    vectorSource,
     view,
   ]);
 };
