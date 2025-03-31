@@ -10,7 +10,6 @@ import { useEffect, useMemo, useRef } from "react";
 import { redMarker } from "../styles/markerStyles";
 import { initMap } from "../utils/initMap";
 import { MarkerDetails, onMarkerClick } from "../utils/onMarkerClick";
-import { addMarker } from "../utils/addMarker";
 
 const useMap = (
   setMap: React.Dispatch<React.SetStateAction<Map | null>>,
@@ -58,21 +57,21 @@ const useMap = (
 
     mapRef.current.setTarget("map");
 
-    const newMarkersLayer = new LayerVector({
-      source: vectorSource,
-    });
+    // const newMarkersLayer = new LayerVector({
+    //   source: vectorSource,
+    // });
 
-    let removeMarkerListener: (() => void) | null = null;
+    // let removeMarkerListener: (() => void) | null = null;
 
-    if (isEditEnabled) {
-      mapRef.current.addLayer(newMarkersLayer);
-      removeMarkerListener = addMarker(mapRef.current, vectorSource);
-    }
+    // if (isEditEnabled) {
+    //   mapRef.current.addLayer(newMarkersLayer);
+    //   removeMarkerListener = addMarker(mapRef.current, vectorSource);
+    // }
 
     onMarkerClick(mapRef.current, iconFeature, setMarkerDetails);
 
     return () => {
-      if (removeMarkerListener) removeMarkerListener(); // Remove event listener when unmounting or disabling edit mode
+      // if (removeMarkerListener) removeMarkerListener(); // Remove event listener when unmounting or disabling edit mode
 
       mapRef.current?.setTarget(undefined);
     };

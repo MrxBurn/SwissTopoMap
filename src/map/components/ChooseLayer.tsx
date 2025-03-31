@@ -11,8 +11,8 @@ type ChooseLayerType = {
 
 function ChooseLayer({
   map,
-  setIsEditEnabled,
-  isEditEnabled,
+  // setIsEditEnabled,
+  // isEditEnabled,
 }: ChooseLayerType): JSX.Element {
   const onDropdownChange = (
     event: ChangeEvent<HTMLSelectElement> | undefined
@@ -45,14 +45,14 @@ function ChooseLayer({
         </select>
       </label>
 
-      <button onClick={() => setIsEditEnabled(!isEditEnabled)}>
+      {/* <button onClick={() => setIsEditEnabled(!isEditEnabled)}>
         <span id="buttonContent">
           <h1>Edit mode: </h1>
           <p id={isEditEnabled ? "on" : "off"}>
             {isEditEnabled ? "ON" : "OFF"}
           </p>
         </span>
-      </button>
+      </button> */}
     </div>
   );
 }
