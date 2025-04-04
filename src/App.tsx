@@ -1,7 +1,7 @@
-import { JSX } from "react";
 import MapComponent from "./map/components/Map";
+import React from "react";
 
-function App(): JSX.Element {
+function App(): React.JSX.Element {
   return <MapComponent />;
 }
 

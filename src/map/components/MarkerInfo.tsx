@@ -1,9 +1,9 @@
-import { JSX } from "react";
+import React from "react";
 
 import "../styles/markerInfoStyles.css";
 import { MarkerDetails } from "../utils/onMarkerClick";
 
-function MarkerInfo(markerDetails: MarkerDetails | null): JSX.Element {
+function MarkerInfo(markerDetails: MarkerDetails | null): React.JSX.Element {
   return (
     <div id="markerToolbar">
       <h1>Marker info</h1>

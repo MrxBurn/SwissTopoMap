@@ -1,4 +1,4 @@
-import { ChangeEvent, JSX } from "react";
+import React, { ChangeEvent } from "react";
 import "../styles/chooseLayerStyles.css";
 import { Map } from "ol";
 import { changeMapLayer } from "../utils/changeMapLayer";
@@ -9,11 +9,7 @@ type ChooseLayerType = {
   isEditEnabled: boolean;
 };
 
-function ChooseLayer({
-  map,
-  // setIsEditEnabled,
-  // isEditEnabled,
-}: ChooseLayerType): JSX.Element {
+function ChooseLayer({ map }: ChooseLayerType): React.JSX.Element {
   const onDropdownChange = (
     event: ChangeEvent<HTMLSelectElement> | undefined
   ) => {

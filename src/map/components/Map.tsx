@@ -1,13 +1,13 @@
 import "ol/ol.css";
 import "../styles/mapStyles.css";
-import { JSX, useState } from "react";
+import React, { useState } from "react";
 import useMap from "../hooks/useMap";
 import ChooseLayer from "./ChooseLayer";
 import MarkerInfo from "./MarkerInfo";
 import { Map } from "ol";
 import { MarkerDetails } from "../utils/onMarkerClick";
 
-function MapComponent(): JSX.Element {
+function MapComponent(): React.JSX.Element {
   const [map, setMap] = useState<Map | null>(null);
   const [markerDetails, setMarkerDetails] = useState<MarkerDetails | null>(
     null
