@@ -2,7 +2,7 @@ import { defineConfig } from "eslint/config";
 import globals from "globals";
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
-import pluginReact from "eslint-plugin-react";
+import pluginReact, { rules } from "eslint-plugin-react";
 
 
 export default defineConfig([
@@ -17,5 +17,9 @@ export default defineConfig([
         "version": "detect"
       }
     }
+  },
+  {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off",
   }
 ]);
